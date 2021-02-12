@@ -24,15 +24,16 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/signup2.jpg"), context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffC0AE9D),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
+              margin: EdgeInsets.only(top: 29),
               height: 350,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/signup2.jpg",), fit: BoxFit.fill),
+                    image: AssetImage("assets/farmersignup.png",), fit: BoxFit.fill),
               ),
             ),
             Padding(
@@ -60,7 +61,7 @@ class _SignUpState extends State<SignUp> {
                   'Create account to continue!',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black38,
+                    color: Colors.black,
                   ),
                 ),
               ),

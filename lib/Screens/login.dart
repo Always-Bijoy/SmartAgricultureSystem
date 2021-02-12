@@ -12,15 +12,17 @@ class Login extends StatelessWidget {
     precacheImage(AssetImage("assets/pic2.jpg"), context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffDEEDEA),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
+              margin: EdgeInsets.only(bottom: 20),
               height: 350,
               decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.circular(50),
                 image: DecorationImage(
-                    image: AssetImage("assets/pic2.jpg"), fit: BoxFit.fill),
+                    image: AssetImage("assets/farmerlogin.png"), fit: BoxFit.fill),
               ),
             ),
             // Padding(
@@ -76,7 +78,7 @@ class Login extends StatelessWidget {
                   'Enter your credentials to continue',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black12,
+                    color: Colors.black,
                   ),
                 ),
               ),

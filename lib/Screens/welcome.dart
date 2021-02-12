@@ -31,11 +31,11 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage("assets/welcome.jpg"), context);
+    precacheImage(AssetImage("assets/welcome2.jpg"), context);
     return isAuth
         ? Home()
         : Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF7ECB4),
             body: Stack(
               children: <Widget>[
                 Container(
@@ -126,16 +126,20 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                       SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  height: 420,
+                  margin: EdgeInsets.only(top: 29),
+                  padding: EdgeInsets.only(bottom: 20),
+                  height: 525,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/welcome2.png"),
+                        image: AssetImage("assets/welcome2.1.png"),
+
+
                         fit: BoxFit.fill),
                   ),
                 ),

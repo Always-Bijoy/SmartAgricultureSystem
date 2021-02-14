@@ -1,10 +1,11 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtime_database/Service/firebase_auth.dart';
 
 import 'home.dart';
-
 
 class Welcome extends StatefulWidget {
   @override
@@ -35,10 +36,15 @@ class _WelcomeState extends State<Welcome> {
     return isAuth
         ? Home()
         : Scaffold(
-      backgroundColor: Color(0xffF7ECB4),
+            backgroundColor: Color(0xffF7ECB4),
             body: Stack(
               children: <Widget>[
                 Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage('assets/welcome2.1.png'),
+                        fit: BoxFit.fill
+                  )),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -129,18 +135,6 @@ class _WelcomeState extends State<Welcome> {
                         height: 15,
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 29),
-                  padding: EdgeInsets.only(bottom: 20),
-                  height: 525,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/welcome2.1.png"),
-
-
-                        fit: BoxFit.fill),
                   ),
                 ),
               ],

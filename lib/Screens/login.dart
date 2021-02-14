@@ -9,7 +9,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage("assets/pic2.jpg"), context);
+    // precacheImage(AssetImage("assets/pic2.jpg"), context);
 
     return Scaffold(
       backgroundColor: Color(0xffDEEDEA),
@@ -25,34 +25,6 @@ class Login extends StatelessWidget {
                     image: AssetImage("assets/farmerlogin.png"), fit: BoxFit.fill),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 20, top: 60),
-            //   child: Align(
-            //     alignment: Alignment.topLeft,
-            //     child: ClipOval(
-            //       child: Material(
-            //         color: Colors.black12,
-            //         child: InkWell(
-            //           splashColor: Colors.black, // inkwell color
-            //           child: SizedBox(
-            //               width: 40,
-            //               height: 40,
-            //               child: Icon(
-            //                 Icons.arrow_back_ios,
-            //                 size: 12,
-            //                 color: Colors.black38,
-            //               )),
-            //           onTap: () {
-            //             Get.to(Welcome(), transition: Transition.rightToLeft);
-            //           },
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 40,
-            // ),
             Padding(
               padding: const EdgeInsets.only(left: 25),
               child: Align(
@@ -157,6 +129,7 @@ class Login extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
+                    margin: EdgeInsets.only(bottom: 40),
                     height: 60,
                     width: double.infinity,
                     child: RaisedButton(

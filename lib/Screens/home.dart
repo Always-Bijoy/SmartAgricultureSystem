@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 // import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_db_web_unofficial/firebasedbwebunofficial.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //todo: for web
   final databaseReference2 = FirebaseDatabaseWeb.instance;
+
   // final databaseReference2 = FirebaseDatabase();
 
   final FirebaseAuthService _user = FirebaseAuthService();
@@ -45,6 +47,7 @@ class _HomeState extends State<Home> {
     return isAuth
         ? Login()
         : Scaffold(
+            backgroundColor: Color.fromRGBO(22, 29, 40, 1),
             appBar: AppBar(
               leading: GestureDetector(
                 onTap: () {
@@ -82,382 +85,376 @@ class _HomeState extends State<Home> {
               ],
             ),
             body: SafeArea(
-              child: SingleChildScrollView(
-                child: Container(
-                  height: Height,
-                  color: Color.fromRGBO(22, 29, 40, 1),
-                  // color: Colors.white,
-                  child: StreamBuilder(
-                    initialData: null,
-                    stream: databaseReference2
-                        .reference()
-                        .child('ESP32_Device')
-                        .onValue,
-                    builder: (context, AsyncSnapshot snapShot) {
-                      if (snapShot.hasData) {
-                        //todo: enable when run mobile
-                        // var dbData = snapShot.data.snapshot.value; // for mobile
-                        var dbData = snapShot.data.value;   //for web
-                        ESP32Device d = ESP32Device.fromJson(dbData);
-                        num humi = d.humidity.data;
-                        num temp = d.temperature.data;
-                        num soil = d.soilMoisture.data;
-                        num soil2 = d.soilMoisture2.data;
-                        return Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 8, bottom: 1, left: 8, right: 8),
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Color(0xff1C2754),),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: Height / 2.7,
-                                          child: Stack(
-                                            children: [
-                                              SfRadialGauge(
-                                                enableLoadingAnimation: true,
-                                                animationDuration: 4500,
-                                                axes: <RadialAxis>[
-                                                  RadialAxis(
-                                                    axisLabelStyle:
-                                                        GaugeTextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10),
-                                                    interval: 10,
-                                                    annotations: <
-                                                        GaugeAnnotation>[
-                                                      GaugeAnnotation(
-                                                        // axisValue: humi.toDouble(),
-                                                        axisValue: 50,
-                                                        positionFactor: 0,
-                                                        widget: Text(
-                                                          '$humi',
-                                                          style: GoogleFonts.mina(
-                                                            fontSize: 25,
-                                                            color: Color.fromRGBO(
-                                                                253, 191, 73, 1),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                    maximum: 100,
-                                                    minimum: 0,
-                                                    pointers: <GaugePointer>[
-                                                      RangePointer(
-                                                        animationType:
-                                                            AnimationType.ease,
-                                                        enableAnimation: true,
-                                                        animationDuration: 4500,
-                                                        value: humi.toDouble(),
-                                                        width: 0.12,
-                                                        sizeUnit:
-                                                            GaugeSizeUnit.factor,
-                                                        cornerStyle:
-                                                            CornerStyle.bothCurve,
-                                                        gradient:
-                                                            const SweepGradient(
-                                                                colors: <Color>[
-                                                              Color(0xFFCC2B5E),
-                                                              Color(0xFF753A88)
-                                                            ],
-                                                                stops: <double>[
-                                                              0.25,
-                                                              0.75
-                                                            ]),
-                                                      ),
-                                                      MarkerPointer(
-                                                        value: humi.toDouble(),
-                                                        markerHeight: 30,
-                                                        markerWidth: 30,
-                                                        markerType:
-                                                            MarkerType.circle,
-                                                        color: Colors.lightBlue,
-                                                      ),
-                                                    ],
-                                                    axisLineStyle: AxisLineStyle(
-                                                        thickness: 20,
-                                                        color: Colors.blue[200],
-                                                        cornerStyle: CornerStyle
-                                                            .bothCurve),
-                                                  )
-                                                ],
-                                              ),
-                                              Positioned.fill(
-                                                bottom: 25,
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.bottomCenter,
-                                                  child: Text(
-                                                    'আর্দ্রতা',
-                                                    style: GoogleFonts.mina(
-                                                      fontSize: 25,
-                                                      color: Color.fromRGBO(
-                                                          253, 191, 73, 1),
-                                                      fontWeight: FontWeight.w700,
-                                                      letterSpacing: 1,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: Height / 2.7,
-                                          child: Stack(
-                                            children: [
-                                              SfRadialGauge(
-                                                enableLoadingAnimation: true,
-                                                animationDuration: 4500,
-                                                axes: <RadialAxis>[
-                                                  RadialAxis(
-                                                    axisLabelStyle:
-                                                        GaugeTextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10),
-                                                    interval: 10,
-                                                    annotations: <
-                                                        GaugeAnnotation>[
-                                                      GaugeAnnotation(
-                                                        axisValue: 50,
-                                                        positionFactor: 0,
-                                                        widget: Text(
-                                                          '$temp',
-                                                          style: GoogleFonts.mina(
-                                                            fontSize: 25,
-                                                            color: Color.fromRGBO(
-                                                                253, 191, 73, 1),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                    maximum: 100,
-                                                    minimum: 0,
-                                                    pointers: <GaugePointer>[
-                                                      RangePointer(
-                                                        animationType:
-                                                            AnimationType.ease,
-                                                        enableAnimation: true,
-                                                        animationDuration: 4500,
-                                                        value: temp.toDouble(),
-                                                        width: 0.12,
-                                                        sizeUnit:
-                                                            GaugeSizeUnit.factor,
-                                                        cornerStyle:
-                                                            CornerStyle.bothCurve,
-                                                        gradient:
-                                                            const SweepGradient(
-                                                                colors: <Color>[
-                                                              Color(0xFFCC2B5E),
-                                                              Color(0xFF753A88)
-                                                            ],
-                                                                stops: <double>[
-                                                              0.25,
-                                                              0.75
-                                                            ]),
-                                                      ),
-                                                      MarkerPointer(
-                                                        value: temp.toDouble(),
-                                                        markerHeight: 30,
-                                                        markerWidth: 30,
-                                                        markerType:
-                                                            MarkerType.circle,
-                                                        color: Colors.lightBlue,
-                                                      ),
-                                                    ],
-                                                    axisLineStyle: AxisLineStyle(
-                                                        thickness: 20,
-                                                        color: Colors.blue[200],
-                                                        cornerStyle: CornerStyle
-                                                            .bothCurve),
-                                                  )
-                                                ],
-                                              ),
-                                              Positioned.fill(
-                                                bottom: 25,
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.bottomCenter,
-                                                  child: Text(
-                                                    'তাপমাত্রা',
-                                                    style: GoogleFonts.mina(
-                                                      fontSize: 25,
-                                                      color: Color.fromRGBO(
-                                                          253, 191, 73, 1),
-                                                      fontWeight: FontWeight.w700,
-                                                      letterSpacing: 1,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 8, bottom: 1, left: 8, right: 8),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Color(0xff1C2754),),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(8),
-                                      child: Column(
+              child: StreamBuilder(
+                initialData: null,
+                stream: databaseReference2
+                    .reference()
+                    .child('ESP32_Device')
+                    .onValue,
+                builder: (context, AsyncSnapshot snapShot) {
+                  if (snapShot.hasData) {
+                    //todo: enable when run mobile
+                    // var dbData = snapShot.data.snapshot.value; // for mobile
+                    var dbData = snapShot.data.value; //for web
+                    ESP32Device d = ESP32Device.fromJson(dbData);
+                    num humi = d.humidity.data;
+                    num temp = d.temperature.data;
+                    num soil = d.soilMoisture.data;
+                    num soil2 = d.soilMoisture2.data;
+                    return ListView(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 8, bottom: 1, left: 8, right: 8),
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color(0xff1C2754),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: Height / 2.7,
+                                      child: Stack(
                                         children: [
-                                          Container(
-                                            // height: Height / 2.7,
-                                            height: 250,
-                                            child: SfRadialGauge(
-                                              enableLoadingAnimation: true,
-                                              animationDuration: 4500,
-                                              axes: <RadialAxis>[
-                                                RadialAxis(
-                                                  interval: 50,
-                                                  axisLabelStyle: GaugeTextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 10),
-                                                  annotations: <GaugeAnnotation>[
-                                                    GaugeAnnotation(
-                                                      axisValue: soil.toDouble(),
-                                                      positionFactor: 0,
-                                                      widget: Text(
-                                                        '$soil',
-                                                        style: GoogleFonts.mina(
-                                                          fontSize: 25,
-                                                          color: Color.fromRGBO(
-                                                              253, 191, 73, 1),
-                                                        ),
+                                          SfRadialGauge(
+                                            enableLoadingAnimation: true,
+                                            animationDuration: 4500,
+                                            axes: <RadialAxis>[
+                                              RadialAxis(
+                                                axisLabelStyle: GaugeTextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10),
+                                                interval: 10,
+                                                annotations: <GaugeAnnotation>[
+                                                  GaugeAnnotation(
+                                                    // axisValue: humi.toDouble(),
+                                                    axisValue: 50,
+                                                    positionFactor: 0,
+                                                    widget: Text(
+                                                      "${humi.toStringAsFixed(2)} \u00B0C",
+                                                      style: GoogleFonts.mina(
+                                                        fontSize: 20,
+                                                        color: Color.fromRGBO(
+                                                            253, 191, 73, 1),
                                                       ),
                                                     ),
-                                                  ],
-                                                  maximum: 500,
-                                                  minimum: 0,
-                                                  pointers: <GaugePointer>[
-                                                    RangePointer(
-                                                      animationType:
-                                                          AnimationType.ease,
-                                                      enableAnimation: true,
-                                                      animationDuration: 4500,
-                                                      value: soil.toDouble(),
-                                                      width: 0.12,
-                                                      sizeUnit:
-                                                          GaugeSizeUnit.factor,
-                                                      cornerStyle:
-                                                          CornerStyle.bothCurve,
-                                                      gradient: const SweepGradient(
-                                                          colors: <Color>[
-                                                            Color(0xFFCC2B5E),
-                                                            Color(0xFF753A88)
-                                                          ],
-                                                          stops: <double>[
-                                                            0.25,
-                                                            0.75
-                                                          ]),
-                                                    ),
-                                                    MarkerPointer(
-                                                      value: soil.toDouble(),
-                                                      markerHeight: 30,
-                                                      markerWidth: 30,
-                                                      markerType: MarkerType.circle,
-                                                      color: Colors.lightBlue,
-                                                    ),
-                                                  ],
-                                                  axisLineStyle: AxisLineStyle(
-                                                      thickness: 20,
-                                                      color: Colors.blue[200],
-                                                      cornerStyle:
-                                                          CornerStyle.bothCurve),
-                                                )
-                                              ],
-                                            ),
+                                                  ),
+                                                ],
+                                                maximum: 100,
+                                                minimum: 0,
+                                                pointers: <GaugePointer>[
+                                                  RangePointer(
+                                                    animationType:
+                                                        AnimationType.ease,
+                                                    enableAnimation: true,
+                                                    animationDuration: 4500,
+                                                    value: humi.toDouble(),
+                                                    width: 0.12,
+                                                    sizeUnit:
+                                                        GaugeSizeUnit.factor,
+                                                    cornerStyle:
+                                                        CornerStyle.bothCurve,
+                                                    gradient:
+                                                        const SweepGradient(
+                                                            colors: <Color>[
+                                                          Color(0xFFCC2B5E),
+                                                          Color(0xFF753A88)
+                                                        ],
+                                                            stops: <double>[
+                                                          0.25,
+                                                          0.75
+                                                        ]),
+                                                  ),
+                                                  MarkerPointer(
+                                                    value: humi.toDouble(),
+                                                    markerHeight: 30,
+                                                    markerWidth: 30,
+                                                    markerType:
+                                                        MarkerType.circle,
+                                                    color: Colors.lightBlue,
+                                                  ),
+                                                ],
+                                                axisLineStyle: AxisLineStyle(
+                                                    thickness: 20,
+                                                    color: Colors.blue[200],
+                                                    cornerStyle:
+                                                        CornerStyle.bothCurve),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            'মাটির আদ্রতা',
-                                            style: GoogleFonts.mina(
-                                              fontSize: 25,
-                                              color:
-                                                  Color.fromRGBO(253, 191, 73, 1),
-                                              fontWeight: FontWeight.w700,
-                                              letterSpacing: 1,
+                                          Positioned.fill(
+                                            bottom: 25,
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Text(
+                                                'আর্দ্রতা',
+                                                style: GoogleFonts.mina(
+                                                  fontSize: 25,
+                                                  color: Color.fromRGBO(
+                                                      253, 191, 73, 1),
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 8, bottom: 1, left: 8, right: 8),
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Color(0xff1C2754),),
-                              width: double.infinity,
-                              child:
-                              Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Row(
-                                   mainAxisAlignment:
-                                       MainAxisAlignment.spaceAround,
+                              Expanded(
+                                child: Column(
                                   children: [
-                                    Text(
-                                      'মোটর',
-                                      style: GoogleFonts.mina(
-                                        fontSize: 25,
-                                        color: Color.fromRGBO(253, 191, 73, 1),
-                                        fontWeight: FontWeight.w700,
+                                    Container(
+                                      height: Height / 2.7,
+                                      child: Stack(
+                                        children: [
+                                          SfRadialGauge(
+                                            enableLoadingAnimation: true,
+                                            animationDuration: 4500,
+                                            axes: <RadialAxis>[
+                                              RadialAxis(
+                                                axisLabelStyle: GaugeTextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10),
+                                                interval: 10,
+                                                annotations: <GaugeAnnotation>[
+                                                  GaugeAnnotation(
+                                                    axisValue: 50,
+                                                    positionFactor: 0,
+                                                    widget: Text(
+                                                      temp.toStringAsFixed(2),
+                                                      style: GoogleFonts.mina(
+                                                        fontSize: 25,
+                                                        color: Color.fromRGBO(
+                                                            253, 191, 73, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                                maximum: 100,
+                                                minimum: 0,
+                                                pointers: <GaugePointer>[
+                                                  RangePointer(
+                                                    animationType:
+                                                        AnimationType.ease,
+                                                    enableAnimation: true,
+                                                    animationDuration: 4500,
+                                                    value: temp.toDouble(),
+                                                    width: 0.12,
+                                                    sizeUnit:
+                                                        GaugeSizeUnit.factor,
+                                                    cornerStyle:
+                                                        CornerStyle.bothCurve,
+                                                    gradient:
+                                                        const SweepGradient(
+                                                            colors: <Color>[
+                                                          Color(0xFFCC2B5E),
+                                                          Color(0xFF753A88)
+                                                        ],
+                                                            stops: <double>[
+                                                          0.25,
+                                                          0.75
+                                                        ]),
+                                                  ),
+                                                  MarkerPointer(
+                                                    value: temp.toDouble(),
+                                                    markerHeight: 30,
+                                                    markerWidth: 30,
+                                                    markerType:
+                                                        MarkerType.circle,
+                                                    color: Colors.lightBlue,
+                                                  ),
+                                                ],
+                                                axisLineStyle: AxisLineStyle(
+                                                    thickness: 20,
+                                                    color: Colors.blue[200],
+                                                    cornerStyle:
+                                                        CornerStyle.bothCurve),
+                                              )
+                                            ],
+                                          ),
+                                          Positioned.fill(
+                                            bottom: 25,
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Text(
+                                                'তাপমাত্রা',
+                                                style: GoogleFonts.mina(
+                                                  fontSize: 25,
+                                                  color: Color.fromRGBO(
+                                                      253, 191, 73, 1),
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-
-                                    // SizedBox(
-                                    //   width: 50,
-                                    // ),
-                                    LiteRollingSwitch(
-                                      //initial value
-                                      value: true,
-                                      textOn: 'চালু',
-                                      textOff: 'বন্ধ',
-                                      // colorOn: Colors.greenAccent[700],
-                                      // colorOff: Colors.redAccent[700],
-                                      colorOn: Color(0xFF753A88),
-                                      colorOff: Color(0xFFCC2B5E),
-                                      // iconOn: Icons.done,
-                                      iconOff: Icons.remove_circle_outline,
-                                      textSize: 16.0,
-                                      onChanged: (bool state) {
-                                        //Use it to manage the different states
-                                        print(
-                                            'Current State of SWITCH IS: $state');
-                                      },
                                     ),
                                   ],
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 8, bottom: 1, left: 8, right: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color(0xff1C2754),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.all(8),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        // height: Height / 2.7,
+                                        height: 250,
+                                        child: SfRadialGauge(
+                                          enableLoadingAnimation: true,
+                                          animationDuration: 4500,
+                                          axes: <RadialAxis>[
+                                            RadialAxis(
+                                              interval: 50,
+                                              axisLabelStyle: GaugeTextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10),
+                                              annotations: <GaugeAnnotation>[
+                                                GaugeAnnotation(
+                                                  axisValue: soil.toDouble(),
+                                                  positionFactor: 0,
+                                                  widget: Text(
+                                                    soil.toStringAsFixed(2),
+                                                    style: GoogleFonts.mina(
+                                                      fontSize: 25,
+                                                      color: Color.fromRGBO(
+                                                          253, 191, 73, 1),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                              maximum: 500,
+                                              minimum: 0,
+                                              pointers: <GaugePointer>[
+                                                RangePointer(
+                                                  animationType:
+                                                      AnimationType.ease,
+                                                  enableAnimation: true,
+                                                  animationDuration: 4500,
+                                                  value: soil.toDouble(),
+                                                  width: 0.12,
+                                                  sizeUnit:
+                                                      GaugeSizeUnit.factor,
+                                                  cornerStyle:
+                                                      CornerStyle.bothCurve,
+                                                  gradient: const SweepGradient(
+                                                      colors: <Color>[
+                                                        Color(0xFFCC2B5E),
+                                                        Color(0xFF753A88)
+                                                      ],
+                                                      stops: <double>[
+                                                        0.25,
+                                                        0.75
+                                                      ]),
+                                                ),
+                                                MarkerPointer(
+                                                  value: soil.toDouble(),
+                                                  markerHeight: 30,
+                                                  markerWidth: 30,
+                                                  markerType: MarkerType.circle,
+                                                  color: Colors.lightBlue,
+                                                ),
+                                              ],
+                                              axisLineStyle: AxisLineStyle(
+                                                  thickness: 20,
+                                                  color: Colors.blue[200],
+                                                  cornerStyle:
+                                                      CornerStyle.bothCurve),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Text(
+                                        'মাটির আদ্রতা',
+                                        style: GoogleFonts.mina(
+                                          fontSize: 25,
+                                          color:
+                                              Color.fromRGBO(253, 191, 73, 1),
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 8, bottom: 1, left: 8, right: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color(0xff1C2754),
+                          ),
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  'মোটর',
+                                  style: GoogleFonts.mina(
+                                    fontSize: 25,
+                                    color: Color.fromRGBO(253, 191, 73, 1),
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
 
-                            )
-                          ],
-                        );
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  ),
-                ),
+                                // SizedBox(
+                                //   width: 50,
+                                // ),
+                                LiteRollingSwitch(
+                                  //initial value
+                                  value: true,
+                                  textOn: 'চালু',
+                                  textOff: 'বন্ধ',
+                                  // colorOn: Colors.greenAccent[700],
+                                  // colorOff: Colors.redAccent[700],
+                                  colorOn: Color(0xFF753A88),
+                                  colorOff: Color(0xFFCC2B5E),
+                                  // iconOn: Icons.done,
+                                  iconOff: Icons.remove_circle_outline,
+                                  textSize: 16.0,
+                                  onChanged: (bool state) {
+                                    //Use it to manage the different states
+                                    print('Current State of SWITCH IS: $state');
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                  return CircularProgressIndicator();
+                },
               ),
             ),
           );

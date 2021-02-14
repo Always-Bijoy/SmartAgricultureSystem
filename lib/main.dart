@@ -4,10 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:realtime_database/route_generator.dart';
-
-import 'Screens/home.dart';
-import 'Screens/login.dart';
-import 'Screens/signup.dart';
 import 'Screens/welcome.dart';
 
 Future<void> main() async {

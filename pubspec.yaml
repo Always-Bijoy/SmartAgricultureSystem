@@ -25,11 +25,14 @@ dependencies:
   syncfusion_flutter_gauges: ^18.3.52
 
   google_fonts: ^1.1.1
-  firebase_auth: ^0.18.4
-  firebase_database: ^4.3.0
-  firebase_core: ^0.5.2+1
+  firebase_auth: ^0.20.0+1
+#  todo: enable firebase database when run on mobile
+#  firebase_database: ^6.0.0
+  firebase_db_web_unofficial: ^0.0.2
+  firebase_core: ^0.7.0
   get: ^3.21.3
   lite_rolling_switch: ^0.1.1
+
   flutter:
     sdk: flutter
 

@@ -31,7 +31,7 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage("assets/welcome2.jpg"), context);
+    precacheImage(AssetImage("assets/welcome2.png"), context);
     return isAuth
         ? Home()
         : Scaffold(

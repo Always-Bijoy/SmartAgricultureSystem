@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_db_web_unofficial/firebasedbwebunofficial.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final databaseReference2 = FirebaseDatabase.instance;
+  //todo: for web
+  final databaseReference2 = FirebaseDatabaseWeb.instance;
+  // final databaseReference2 = FirebaseDatabase();
 
   final FirebaseAuthService _user = FirebaseAuthService();
 
@@ -92,11 +95,14 @@ class _HomeState extends State<Home> {
                         .onValue,
                     builder: (context, AsyncSnapshot snapShot) {
                       if (snapShot.hasData) {
-                        var dbData = snapShot.data.snapshot.value;
+                        //todo: enable when run mobile
+                        // var dbData = snapShot.data.snapshot.value; // for mobile
+                        var dbData = snapShot.data.value;   //for web
                         ESP32Device d = ESP32Device.fromJson(dbData);
                         num humi = d.humidity.data;
                         num temp = d.temperature.data;
                         num soil = d.soilMoisture.data;
+                        num soil2 = d.soilMoisture2.data;
                         return Column(
                           children: [
                             Container(
